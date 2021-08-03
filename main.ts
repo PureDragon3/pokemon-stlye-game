@@ -9,12 +9,12 @@ function OpenChest (X: number, Y: number) {
     tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`chestOpen`)
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
-    EvaluatemySprite()
+    evaluateMySprite()
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
-    EvaluatemySprite()
+    evaluateMySprite()
 })
-function EvaluatemySprite () {
+function evaluateMySprite () {
     if (controller.dx() == 0 && controller.dy() == 0) {
         animation.stopAnimation(animation.AnimationTypes.All, mySprite)
     } else if (controller.dx() > 0) {
