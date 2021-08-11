@@ -11,6 +11,15 @@ function OpenChest (X: number, Y: number) {
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     evaluateMySprite()
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    calculatedPlayerInteractiveCol = Math.round(mySprite.left / mapTileSize)
+    calculatedPlayerInteractiveRow = Math.round(mySprite.top / mapTileSize)
+    if (mySpriteFacing == "Up" && mySprite.tileKindAt(TileDirection.Top, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
+    } else if (false) {
+    	
+    }
+})
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
@@ -323,11 +332,15 @@ function evaluateMySprite () {
         mySpriteFacing = "Down"
     }
 }
+let calculatedPlayerInteractiveRow = 0
+let calculatedPlayerInteractiveCol = 0
 let mySprite: Sprite = null
 let mySpriteFacing = ""
 let mySpriteAnimationMs = 0
+let mapTileSize = 0
+mapTileSize = 16
 mySpriteAnimationMs = 100
-mySpriteFacing = "Down"
+mySpriteFacing = "None"
 scene.setBackgroundColor(12)
 tiles.setTilemap(tilemap`level1`)
 mySprite = sprites.create(img`
@@ -353,3 +366,4 @@ controller.moveSprite(mySprite)
 tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 1))
 SetUpChest(2, 3)
 SetUpChest(4, 3)
+SetUpChest(12, 9)
