@@ -29,19 +29,20 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
 function UseComputer (Col: number, Row: number) {
-    if (mySpriteFacing == FacingUp) {
+    if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
+        ComputerScreenOn(Col, Row)
         game.showLongText("Computer!", DialogLayout.Bottom)
     }
 }
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
         OpenChest(Col, Row)
-    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
         UseComputer(Col, Row)
     }
 }
 function SetUpComputer (X: number, Y: number) {
-    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`ComputerScreenOn`)
+    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`ComputerScreenOn0`)
     tiles.setWallAt(tiles.getTileLocation(X, Y), true)
 }
 function evaluateMySprite () {
@@ -352,6 +353,9 @@ function evaluateMySprite () {
         )
         mySpriteFacing = FacingDown
     }
+}
+function ComputerScreenOn (Col: number, Row: number) {
+    tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)
 }
 let calculatedPlayerInteractiveRow = 0
 let calculatedPlayerInteractiveCol = 0
