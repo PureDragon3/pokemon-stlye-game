@@ -16,8 +16,12 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     calculatedPlayerInteractiveRow = Math.round(mySprite.top / mapTileSize)
     if (mySpriteFacing == "Up" && mySprite.tileKindAt(TileDirection.Top, assets.tile`chestClosed`)) {
         OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
-    } else if (false) {
-    	
+    } else if (mySpriteFacing == "left" && mySprite.tileKindAt(TileDirection.Left, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
+    } else if (mySpriteFacing == "right" && mySprite.tileKindAt(TileDirection.Right, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
+    } else if (mySpriteFacing == "down" && mySprite.tileKindAt(TileDirection.Bottom, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
     }
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
