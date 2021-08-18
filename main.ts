@@ -14,19 +14,23 @@ controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     calculatedPlayerInteractiveCol = Math.round(mySprite.left / mapTileSize)
     calculatedPlayerInteractiveRow = Math.round(mySprite.top / mapTileSize)
-    if (mySpriteFacing == "Up" && mySprite.tileKindAt(TileDirection.Top, assets.tile`chestClosed`)) {
+    if (mySpriteFacing == FacingUp && mySprite.tileKindAt(TileDirection.Top, assets.tile`chestClosed`)) {
         OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
-    } else if (mySpriteFacing == "left" && mySprite.tileKindAt(TileDirection.Left, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
-    } else if (mySpriteFacing == "right" && mySprite.tileKindAt(TileDirection.Right, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
-    } else if (mySpriteFacing == "down" && mySprite.tileKindAt(TileDirection.Bottom, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
+    } else if (mySpriteFacing == FacingDown && mySprite.tileKindAt(TileDirection.Bottom, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + 1)
+    } else if (mySpriteFacing == FacingLeft && mySprite.tileKindAt(TileDirection.Left, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol + -1, calculatedPlayerInteractiveRow)
+    } else if (mySpriteFacing == FacingRight && mySprite.tileKindAt(TileDirection.Right, assets.tile`chestClosed`)) {
+        OpenChest(calculatedPlayerInteractiveCol + 1, calculatedPlayerInteractiveRow)
     }
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
+function SetUpComputer (X: number, Y: number) {
+    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.image`computer1`)
+    tiles.setWallAt(tiles.getTileLocation(X, Y), true)
+}
 function evaluateMySprite () {
     if (controller.dx() == 0 && controller.dy() == 0) {
         animation.stopAnimation(animation.AnimationTypes.All, mySprite)
@@ -105,7 +109,7 @@ function evaluateMySprite () {
         mySpriteAnimationMs,
         true
         )
-        mySpriteFacing = "Right"
+        mySpriteFacing = FacingRight
     } else if (controller.dx() < 0) {
         animation.runImageAnimation(
         mySprite,
@@ -181,7 +185,7 @@ function evaluateMySprite () {
         mySpriteAnimationMs,
         true
         )
-        mySpriteFacing = "Left"
+        mySpriteFacing = FacingLeft
     } else if (controller.dy() < 0) {
         animation.runImageAnimation(
         mySprite,
@@ -257,7 +261,7 @@ function evaluateMySprite () {
         mySpriteAnimationMs,
         true
         )
-        mySpriteFacing = "Up"
+        mySpriteFacing = FacingUp
     } else if (controller.dy() > 0) {
         animation.runImageAnimation(
         mySprite,
@@ -333,17 +337,25 @@ function evaluateMySprite () {
         mySpriteAnimationMs,
         true
         )
-        mySpriteFacing = "Down"
+        mySpriteFacing = FacingDown
     }
 }
 let calculatedPlayerInteractiveRow = 0
 let calculatedPlayerInteractiveCol = 0
 let mySprite: Sprite = null
 let mySpriteFacing = ""
+let FacingDown = ""
+let FacingUp = ""
+let FacingLeft = ""
+let FacingRight = ""
 let mySpriteAnimationMs = 0
 let mapTileSize = 0
 mapTileSize = 16
 mySpriteAnimationMs = 100
+FacingRight = "Right"
+FacingLeft = "Left"
+FacingUp = "Up"
+FacingDown = "Down"
 mySpriteFacing = "None"
 scene.setBackgroundColor(12)
 tiles.setTilemap(tilemap`level1`)
@@ -371,3 +383,4 @@ tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 1))
 SetUpChest(2, 3)
 SetUpChest(4, 3)
 SetUpChest(12, 9)
+SetUpComputer(6, 3)
