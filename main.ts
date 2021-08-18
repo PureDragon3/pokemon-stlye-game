@@ -36,12 +36,12 @@ function UseComputer (Col: number, Row: number) {
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
         OpenChest(Col, Row)
-    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), img`computer1`)) {
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
         UseComputer(Col, Row)
     }
 }
 function SetUpComputer (X: number, Y: number) {
-    tiles.setTileAt(tiles.getTileLocation(X, Y), img`computer1`)
+    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`ComputerScreenOn`)
     tiles.setWallAt(tiles.getTileLocation(X, Y), true)
 }
 function evaluateMySprite () {
