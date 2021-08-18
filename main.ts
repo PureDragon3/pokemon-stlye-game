@@ -14,19 +14,32 @@ controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     calculatedPlayerInteractiveCol = Math.round(mySprite.left / mapTileSize)
     calculatedPlayerInteractiveRow = Math.round(mySprite.top / mapTileSize)
-    if (mySpriteFacing == FacingUp && mySprite.tileKindAt(TileDirection.Top, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + -1)
-    } else if (mySpriteFacing == FacingDown && mySprite.tileKindAt(TileDirection.Bottom, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow + 1)
-    } else if (mySpriteFacing == FacingLeft && mySprite.tileKindAt(TileDirection.Left, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol + -1, calculatedPlayerInteractiveRow)
-    } else if (mySpriteFacing == FacingRight && mySprite.tileKindAt(TileDirection.Right, assets.tile`chestClosed`)) {
-        OpenChest(calculatedPlayerInteractiveCol + 1, calculatedPlayerInteractiveRow)
+    if (mySpriteFacing == FacingUp) {
+        calculatedPlayerInteractiveRow += -1
+    } else if (mySpriteFacing == FacingDown) {
+        calculatedPlayerInteractiveRow += 1
+    } else if (mySpriteFacing == FacingLeft) {
+        calculatedPlayerInteractiveCol += -1
+    } else if (mySpriteFacing == FacingRight) {
+        calculatedPlayerInteractiveCol += 1
     }
+    CheckForInteractivity(calculatedPlayerInteractiveCol, calculatedPlayerInteractiveRow)
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
+function UseComputer (Col: number, Row: number) {
+    if (mySpriteFacing == FacingUp) {
+        game.showLongText("Computer!", DialogLayout.Bottom)
+    }
+}
+function CheckForInteractivity (Col: number, Row: number) {
+    if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
+        OpenChest(Col, Row)
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.image`computer1`)) {
+        UseComputer(Col, Row)
+    }
+}
 function SetUpComputer (X: number, Y: number) {
     tiles.setTileAt(tiles.getTileLocation(X, Y), assets.image`computer1`)
     tiles.setWallAt(tiles.getTileLocation(X, Y), true)
@@ -384,3 +397,4 @@ SetUpChest(2, 3)
 SetUpChest(4, 3)
 SetUpChest(12, 9)
 SetUpComputer(6, 3)
+SetUpComputer(6, 10)
