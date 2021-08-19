@@ -34,11 +34,16 @@ function UseComputer (Col: number, Row: number) {
         game.showLongText("Computer!", DialogLayout.Bottom)
     }
 }
+function ComputerScreenOff (Col: number, Row: number) {
+    tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)
+}
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
         OpenChest(Col, Row)
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
         UseComputer(Col, Row)
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
+        ComputerScreenOff(Col, Row)
     }
 }
 function SetUpComputer (X: number, Y: number) {
