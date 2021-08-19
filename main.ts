@@ -31,11 +31,12 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
 function UseComputer (Col: number, Row: number) {
     if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
         ComputerScreenOn(Col, Row)
-        game.showLongText("Computer!", DialogLayout.Bottom)
     }
 }
 function ComputerScreenOff (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)
+    music.powerDown.play()
+    game.showLongText("Powering Down", DialogLayout.Bottom)
 }
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
@@ -361,6 +362,8 @@ function evaluateMySprite () {
 }
 function ComputerScreenOn (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)
+    music.powerUp.play()
+    game.showLongText("Powering Up", DialogLayout.Bottom)
 }
 let calculatedPlayerInteractiveRow = 0
 let calculatedPlayerInteractiveCol = 0
