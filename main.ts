@@ -31,6 +31,8 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
 function UseComputer (Col: number, Row: number) {
     if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
         ComputerScreenOn(Col, Row)
+    } else if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
+        ComputerScreenOff(Col, Row)
     }
 }
 function ComputerScreenOff (Col: number, Row: number) {
@@ -44,7 +46,7 @@ function CheckForInteractivity (Col: number, Row: number) {
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
         UseComputer(Col, Row)
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
-        ComputerScreenOff(Col, Row)
+        UseComputer(Col, Row)
     }
 }
 function SetUpComputer (X: number, Y: number) {
