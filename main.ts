@@ -28,11 +28,16 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
+function IsComputerTile (Col: number, Row: number) {
+    return tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`) || tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)
+}
 function UseComputer (Col: number, Row: number) {
-    if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
-        ComputerScreenOn(Col, Row)
-    } else if (mySpriteFacing == FacingUp && tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
-        ComputerScreenOff(Col, Row)
+    if (mySpriteFacing == FacingUp) {
+        if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
+            ComputerScreenOn(Col, Row)
+        } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
+            ComputerScreenOff(Col, Row)
+        }
     }
 }
 function ComputerScreenOff (Col: number, Row: number) {
@@ -43,9 +48,7 @@ function ComputerScreenOff (Col: number, Row: number) {
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
         OpenChest(Col, Row)
-    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
-        UseComputer(Col, Row)
-    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)) {
+    } else if (IsComputerTile(Col, Row)) {
         UseComputer(Col, Row)
     }
 }

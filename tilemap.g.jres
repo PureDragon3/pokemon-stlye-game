@@ -159,8 +159,7 @@
             "sprites.dungeon.darkGroundWest",
             "sprites.dungeon.darkGroundNorth",
             "sprites.dungeon.darkGroundEast",
-            "sprites.dungeon.darkGroundSouth",
-            "myTiles.tile5"
+            "sprites.dungeon.darkGroundSouth"
         ],
         "displayName": "level1"
     },
