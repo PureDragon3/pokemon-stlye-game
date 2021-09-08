@@ -12,7 +12,22 @@
     "image3": {
         "data": "hwQQABAAAAAAAAAAAAAAAAAA//8P/wAAAPBV1f3d/w8A/1VV/d1P9PB3393d//70f3f33d1P9PR/d/H930/09H938d29/0QPf3fx3b3/RA9/d/H930/09H93993dT/T08Hff3d3//vQA/1VV/d1P9ADwVdX93f8PAAD//w//AAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
-        "displayName": "Trainer Blondie"
+        "displayName": "Trainer Blondie Facing Down"
+    },
+    "image4": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAP8A/wAAAAD/3f/dDwAA/1XV////D/B3V1X9/0/0f3d3Vf0i//R/d3dVJSLy9H93d1UlH/IPf3d3VSUf8g9/d3dVJSLy9H93d1X9Iv/08HdXVf3/T/QA/1XV////DwAA/93/3Q8AAAAA/wD/AAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Trainer Blondie Facing Up"
+    },
+    "image5": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/DwAAAAAA/1X18A//APB3VVUv8uQPf3dX3f3/RA9/d1fd3d9ND393V9Xd3/0Af3dX3d3//wB/d3fd3U/vD393cf/dT08P8Bdx3f3/RA8A//H/DwD/AADw8QAAAAAAAAAPAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Trainer Blondie Facing Right"
+    },
+    "image6": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAADwAAAAAAAPDxAAAAAAAA//H/DwD/APAXcd39/0QPf3dx/91PTw9/d3fd3f/vD393V9Xd3/0Af3dX3d3f/QB/d1fd3f9PD393V939T08P8HdVVS/y5A8A/1X18A//AAAA/w8AAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Trainer Blondie Facing Left"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",

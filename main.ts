@@ -1,12 +1,14 @@
 namespace SpriteKind {
     export const Chest = SpriteKind.create()
 }
-function SetUpChest (X: number, Y: number) {
-    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`chestClosed`)
-    tiles.setWallAt(tiles.getTileLocation(X, Y), true)
+function SetUpChest (Col: number, Row: number, Contents: string) {
+    chestContents[colRowToIndex(Col, Row)] = Contents
+    tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)
+    tiles.setWallAt(tiles.getTileLocation(Col, Row), true)
 }
-function OpenChest (X: number, Y: number) {
-    tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`chestOpen`)
+function OpenChest (Col: number, Row: number) {
+    tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestOpen`)
+    game.showLongText("You got " + chestContents[colRowToIndex(Col, Row)], DialogLayout.Bottom)
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     evaluateMySprite()
@@ -31,6 +33,21 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
 function IsComputerTile (Col: number, Row: number) {
     return tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`) || tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)
 }
+function SetupMap () {
+    scene.setBackgroundColor(12)
+    tiles.setTilemap(tilemap`level1`)
+    mapTileSize = 16
+    tileMapWidth = 16
+    chestContents = []
+    SetUpChest(2, 3, "Rabbit Killing Kit")
+    SetUpChest(4, 3, "Sword")
+    SetUpChest(12, 9, "Money")
+    SetUpComputer(6, 3)
+    SetUpComputer(6, 10)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 1))
+    mySpriteFacing = FacingLeft
+    evaluateMySprite()
+}
 function UseComputer (Col: number, Row: number) {
     if (mySpriteFacing == FacingUp) {
         if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)) {
@@ -52,13 +69,31 @@ function CheckForInteractivity (Col: number, Row: number) {
         UseComputer(Col, Row)
     }
 }
+function SetupCharacter () {
+    mySpriteAnimationMs = 100
+    mySprite = sprites.create(assets.image`Trainer Blondie Facing Down`, SpriteKind.Player)
+    scene.cameraFollowSprite(mySprite)
+    controller.moveSprite(mySprite)
+}
 function SetUpComputer (X: number, Y: number) {
     tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`ComputerScreenOn0`)
     tiles.setWallAt(tiles.getTileLocation(X, Y), true)
 }
+function colRowToIndex (Col: number, Row: number) {
+    return Row * tileMapWidth + Col
+}
 function evaluateMySprite () {
     if (controller.dx() == 0 && controller.dy() == 0) {
         animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+        if (mySpriteFacing == FacingUp) {
+            mySprite.setImage(assets.image`Trainer Blondie Facing Up`)
+        } else if (mySpriteFacing == FacingDown) {
+            mySprite.setImage(assets.image`Trainer Blondie Facing Down`)
+        } else if (mySpriteFacing == FacingRight) {
+            mySprite.setImage(assets.image`Trainer Blondie Facing Right`)
+        } else if (mySpriteFacing == FacingLeft) {
+            mySprite.setImage(assets.image`Trainer Blondie Facing Left`)
+        }
     } else if (controller.dx() > 0) {
         animation.runImageAnimation(
         mySprite,
@@ -370,31 +405,21 @@ function ComputerScreenOn (Col: number, Row: number) {
     music.powerUp.play()
     game.showLongText("Powering Up", DialogLayout.Bottom)
 }
-let calculatedPlayerInteractiveRow = 0
-let calculatedPlayerInteractiveCol = 0
-let mySprite: Sprite = null
+let mySpriteAnimationMs = 0
+let tileMapWidth = 0
 let mySpriteFacing = ""
+let calculatedPlayerInteractiveRow = 0
+let mapTileSize = 0
+let mySprite: Sprite = null
+let calculatedPlayerInteractiveCol = 0
+let chestContents: string[] = []
 let FacingDown = ""
 let FacingUp = ""
 let FacingLeft = ""
 let FacingRight = ""
-let mySpriteAnimationMs = 0
-let mapTileSize = 0
-mapTileSize = 16
-mySpriteAnimationMs = 100
 FacingRight = "Right"
 FacingLeft = "Left"
 FacingUp = "Up"
 FacingDown = "Down"
-mySpriteFacing = "None"
-scene.setBackgroundColor(12)
-tiles.setTilemap(tilemap`level1`)
-mySprite = sprites.create(assets.image`Trainer Blondie`, SpriteKind.Player)
-scene.cameraFollowSprite(mySprite)
-controller.moveSprite(mySprite)
-tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 1))
-SetUpChest(2, 3)
-SetUpChest(4, 3)
-SetUpChest(12, 9)
-SetUpComputer(6, 3)
-SetUpComputer(6, 10)
+SetupCharacter()
+SetupMap()
