@@ -2,9 +2,13 @@ namespace SpriteKind {
     export const Chest = SpriteKind.create()
 }
 function SetUpChest (Col: number, Row: number, Contents: string) {
-    chestContents[colRowToIndex(Col, Row)] = Contents
-    tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)
-    tiles.setWallAt(tiles.getTileLocation(Col, Row), true)
+    if (Contents.includes(Separator)) {
+        game.showLongText("'" + Contents + "' cannot contain '" + Separator + "'", DialogLayout.Bottom)
+    } else {
+        chestContents[colRowToIndex(Col, Row)] = Contents
+        tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)
+        tiles.setWallAt(tiles.getTileLocation(Col, Row), true)
+    }
 }
 function OpenChest (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestOpen`)
@@ -417,6 +421,8 @@ let FacingDown = ""
 let FacingUp = ""
 let FacingLeft = ""
 let FacingRight = ""
+let Separator = ""
+Separator = "/"
 FacingRight = "Right"
 FacingLeft = "Left"
 FacingUp = "Up"
