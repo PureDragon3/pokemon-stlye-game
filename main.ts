@@ -1,11 +1,11 @@
 namespace SpriteKind {
     export const Chest = SpriteKind.create()
 }
-function SetUpChest (Col: number, Row: number, Contents: string) {
+function SetUpChest (Col: number, Row: number, Contents: string, Quantity: number) {
     if (Contents.includes(Separator)) {
         game.showLongText("'" + Contents + "' cannot contain '" + Separator + "'", DialogLayout.Bottom)
     } else {
-        chestContents[colRowToIndex(Col, Row)] = Contents
+        chestContents[colRowToIndex(Col, Row)] = "" + Contents + Separator + Quantity
         tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)
         tiles.setWallAt(tiles.getTileLocation(Col, Row), true)
     }
@@ -43,9 +43,9 @@ function SetupMap () {
     mapTileSize = 16
     tileMapWidth = 16
     chestContents = []
-    SetUpChest(2, 3, "Rabbit Killing Kit")
-    SetUpChest(4, 3, "Sword")
-    SetUpChest(12, 9, "Money")
+    SetUpChest(2, 3, "Rabbit Killing Kit", 5)
+    SetUpChest(4, 3, "Sword", 1)
+    SetUpChest(12, 9, "Money", 50)
     SetUpComputer(6, 3)
     SetUpComputer(6, 10)
     tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 1))
