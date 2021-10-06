@@ -12,7 +12,7 @@ function SetUpChest (Col: number, Row: number, Contents: string, Quantity: numbe
 }
 function OpenChest (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestOpen`)
-    game.showLongText("You got " + chestContents[colRowToIndex(Col, Row)], DialogLayout.Bottom)
+    game.showLongText("You got " + GetChestItemQuanity(chestContents[colRowToIndex(Col, Row)]) + " " + GetChestItemName(chestContents[colRowToIndex(Col, Row)]), DialogLayout.Bottom)
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     evaluateMySprite()
@@ -34,6 +34,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     evaluateMySprite()
 })
+function GetChestItemQuanity (ChestData: string) {
+    SplitChestData = ChestData.split(Separator)
+    return parseInt(SplitChestData[1])
+}
 function IsComputerTile (Col: number, Row: number) {
     return tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`) || tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn`)
 }
@@ -65,6 +69,10 @@ function ComputerScreenOff (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`ComputerScreenOn0`)
     music.powerDown.play()
     game.showLongText("Powering Down", DialogLayout.Bottom)
+}
+function GetChestItemName (ChestData: string) {
+    SplitChestData = ChestData.split(Separator)
+    return SplitChestData[0]
 }
 function CheckForInteractivity (Col: number, Row: number) {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(Col, Row), assets.tile`chestClosed`)) {
@@ -411,6 +419,7 @@ function ComputerScreenOn (Col: number, Row: number) {
 }
 let mySpriteAnimationMs = 0
 let tileMapWidth = 0
+let SplitChestData: string[] = []
 let mySpriteFacing = ""
 let calculatedPlayerInteractiveRow = 0
 let mapTileSize = 0
