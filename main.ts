@@ -12,7 +12,7 @@ function SetUpChest (Col: number, Row: number, Contents: string, Quantity: numbe
 }
 function OpenChest (Col: number, Row: number) {
     tiles.setTileAt(tiles.getTileLocation(Col, Row), assets.tile`chestOpen`)
-    game.showLongText("You got " + GetChestItemQuanity(chestContents[colRowToIndex(Col, Row)]) + " " + GetChestItemName(chestContents[colRowToIndex(Col, Row)]), DialogLayout.Bottom)
+    AddToInventory(GetChestItemName(chestContents[colRowToIndex(Col, Row)]), GetChestItemQuanity(chestContents[colRowToIndex(Col, Row)]), true)
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     evaluateMySprite()
@@ -86,6 +86,11 @@ function SetupCharacter () {
     mySprite = sprites.create(assets.image`Trainer Blondie Facing Down`, SpriteKind.Player)
     scene.cameraFollowSprite(mySprite)
     controller.moveSprite(mySprite)
+}
+function AddToInventory (name: string, qty: number, displayNotification: boolean) {
+    if (displayNotification) {
+        game.showLongText("You got " + qty + " " + name, DialogLayout.Bottom)
+    }
 }
 function SetUpComputer (X: number, Y: number) {
     tiles.setTileAt(tiles.getTileLocation(X, Y), assets.tile`ComputerScreenOn0`)
